@@ -7,12 +7,12 @@
         <v-layout row wrap>
           <v-flex md12>
             <div>
-              <p>
+              <p class="title">
                 <router-link :to="{name:'LandingPage', params: {slug:course.slug}}">
                   {{course.title}}
                 </router-link>
               </p>
-              <h1 class="text-reveal" :class="{'loaded': !loading}"><span>{{lesson.title}}</span></h1>
+              <h1 class="display-3 text-reveal" :class="{'loaded': !loading}"><span>{{lesson.title}}</span></h1>
               <p><small>Posté le 12/12/18 par Sylvain Pastor</small></p>
             </div>
             <media file="https://www.youtube.com/watch?v=Za1DKikt6x0"></media>
@@ -44,11 +44,11 @@
         <div>
           <v-toolbar flat hidden-xs-only>
             <v-spacer></v-spacer>
-            <router-link class="text-reveal" :class="{'loaded' : !loading}" v-if="course.lessons[lessonId - 1]" :to="{name:'Lesson', params:{formation: course.slug, lesson: lessonId - 1 }}">
-              <span>{{course.lessons[lessonId - 1].title}}</span>
+            <router-link class="text-reveal prev" :class="{'loaded' : !loading}" v-if="course.lessons[lessonId - 1]" :to="{name:'Lesson', params:{formation: course.slug, lesson: lessonId - 1 }}">
+              <span><v-icon small>arrow_back</v-icon> {{course.lessons[lessonId - 1].title}}</span>
             </router-link>
-            <router-link class="text-reveal" :class="{'loaded' : !loading}"  v-if="course.lessons[lessonId + 1]" :to="{name:'Lesson', params:{formation: course.slug, lesson: lessonId + 1 }}">
-              <span>{{course.lessons[lessonId + 1].title}}</span>
+            <router-link class="text-reveal next" :class="{'loaded' : !loading}"  v-if="course.lessons[lessonId + 1]" :to="{name:'Lesson', params:{formation: course.slug, lesson: lessonId + 1 }}">
+              <span>{{course.lessons[lessonId + 1].title}} <v-icon small>arrow_forward</v-icon></span>
             </router-link>
           </v-toolbar>
         </div>
@@ -157,7 +157,7 @@
         </v-flex>
         <v-flex sm4 class="sidebar">
           <div class="module">
-            <h3>Auteur</h3>
+            <h3 class="title">Auteur</h3>
             <v-layout row wrap align-center>
               <v-flex xs3>
                 <v-badge overlap  color="green" style="margin-top:10px;">
@@ -171,13 +171,13 @@
                 </v-badge>
               </v-flex>
               <v-flex xs9>
-                <h4>PASTOR Sylvain</h4>
+                <h4 >PASTOR Sylvain</h4>
                 <small>Posté le ....</small>
               </v-flex>
             </v-layout>
           </div>
           <div class="module">
-            <h3>Catégories</h3>
+            <h3 class="title">Catégories</h3>
             <v-list>
               <v-list-tile>
                 <v-list-tile-content>
@@ -199,7 +199,7 @@
             </v-list>
           </div>
           <div class="module">
-            <h3>Tags</h3>
+            <h3 class="title">Tags</h3>
             <v-chip>Jaco</v-chip>
             <v-chip>Pastorius</v-chip>
             <v-chip>Grouve</v-chip>
@@ -280,10 +280,6 @@ export default {
         z-index: 100;
         position: relative;
       }
-      
-      .btn-next-prev {
-
-      }
       .text-reveal{
         position:relative;
         text-align: center;
@@ -293,6 +289,13 @@ export default {
         }
       }
     }
+
+
+    .prev, .next {
+      margin-right: 10px;
+      text-transform: uppercase;;
+    }
+
     .v-window-item {
       padding-top: 20px;
     }

@@ -16,7 +16,7 @@
             <v-progress-circular indeterminate></v-progress-circular>
           </v-layout>
     </v-img>
-    <h2 class="preview-title">
+    <h2 class="display-1 preview-title">
       <router-link :to=" { name: 'LandingPage', params: {slug: current.slug} }">
           {{current.title}}
       </router-link>
