@@ -1,6 +1,23 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Home from './views/Home.vue';
+import HelloWorld from '@/components/HelloWorld.vue';
+import Preview from '@/views/courses/Preview.vue';
+import About from '@/views/About.vue';
+import LandingPage from '@/views/courses/LandingPage.vue';
+import Lesson from '@/views/lessons/lesson.vue';
+import Logination from '@/views/user/Logination.vue';
+import MyAccount from '@/views/user/MyAccount.vue';
+
+import store from './store/store'; // your vuex store
+
+const ifAuthenticated = (to, from, next) => {
+  if (store.getters['auth/isAuthenticated']) {
+    next();
+    return;
+  }
+  next('/user/login');
+};
+
 
 Vue.use(Router);
 
@@ -10,16 +27,45 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'home',
-      component: Home,
+      component: HelloWorld,
+      children: [
+        {
+          path: '/:slug',
+          name: "Preview",
+          component: Preview
+        },
+        {
+          path: '/',
+          name: "PreviewDefault",
+          component: Preview
+        },
+      ],
+    },
+    {
+      path: '/formation/:slug',
+      name: "LandingPage",
+      component: LandingPage
+    },
+    {
+      path: '/go/:formation/:lesson',
+      name: 'Lesson',
+      component: Lesson
     },
     {
       path: '/about',
-      name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "about" */ './views/About.vue'),
+      name: 'About',
+      component: About,
+    },
+    {
+      path: '/user',
+      name: "MyAccount",
+      component: MyAccount,
+      beforeEnter: ifAuthenticated
+    },
+    {
+      path: '/user/login',
+      name: 'Logination',
+      component: Logination
     },
   ],
 });
