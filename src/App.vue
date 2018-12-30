@@ -46,6 +46,9 @@ export default {
     this.$store.dispatch('courses/getList').then(response => {
       console.log(response);
     });
+    if (localStorage.getItem('user-token')) {
+      this.$store.dispatch('auth/checkToken');
+    }
   },
 };
 </script>
@@ -83,7 +86,7 @@ export default {
       height: 100%;
       background: white;
   }
- 
+
   .text-reveal.loaded span::before{
       animation: a-ltr-before .5s cubic-bezier(.77,0,.18,1) forwards;
       transform: translateX(0);
@@ -109,4 +112,3 @@ export default {
       100% {transform: translateX(200%)}
   }
 </style>
-

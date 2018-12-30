@@ -1,7 +1,7 @@
 <template>
   <div class="presentation" v-if="current" >
     <header class="hero" :style="'background-image: url('+ current.thumbnail +');'">
-      <h1>{{current.title}}</h1>
+      <h1 class="display-3">{{current.title}}</h1>
       <p>{{current.description}}</p>
       <p class="text-xs-left"><v-btn round dark :to="{name:'Lesson', params: {formation: current.slug, lessonId: 0}}">Démarrer la formation</v-btn></p>
     </header>
@@ -48,7 +48,7 @@
           </v-tabs>
         </v-flex>
         <v-flex md4 class="summary">
-          <h2>Contenu</h2>
+          <h2 class="display-1">Contenu</h2>
           <v-list v-if="current.lessons[0]" two-line dark>
             <div v-for="(l,i) in current.lessons" :key="i">
               <v-list-tile ripple :to="{name:'Lesson', params: {formation: current.slug, lesson: i}}">
