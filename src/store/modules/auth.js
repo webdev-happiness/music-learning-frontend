@@ -60,9 +60,12 @@ export default {
       });
     },
     logout(context) {
-      context.commit('AUTH_LOGOUT');
-      localStorage.removeItem('user-token'); // clear your user's token from localstorage
-      delete api.defaults.headers.common.Authorization;
+      return new Promise((resolve, reject) => {
+        context.commit('AUTH_LOGOUT');
+        localStorage.removeItem('user-token'); // clear your user's token from localstorage
+        delete api.defaults.headers.common.Authorization;
+        resolve(true);
+      });
     },
   },
 };
