@@ -1,43 +1,38 @@
 <template>
-  <v-form class="login"  v-model="valid" lazy-validation>
-  <v-container>
-      <h1>Sign in</h1>
+    <v-form v-model="valid" lazy-validation  @submit.prevent="authentification" class="login-form">
+      <h1 class="text-xs-center">Se connecter</h1>
       <p v-if="error" class="red--text">{{error.message}}</p>
-      <form @submit.prevent="authentification">
-        <v-layout row wrap>
-          <v-flex xs12 sm6 pr-5>
-            <v-text-field
-              v-model="email"
-              :rules="emailRules"
-              label="E-mail"
-              required
-            ></v-text-field>
-          </v-flex>
-          <v-flex xs12 sm6>
-            <v-text-field
-              v-model="password"
-              @click:append="showPassword ? 'visibility_off' : 'visibility'"
-              :rules="[passwordRules.required, passwordRules.min]"
-              :type="showPassword ? 'text' : 'password'"
-              label="Password"
-              hint="At least 5 characters"
-              counter
-              @click:append-cb="prependIconCall"
-            ></v-text-field>
-          </v-flex>
-          <v-flex xs1>
-            <v-btn
-            type="submit"
-            :disabled="!valid"
-              @click="authentification"
-            >
-              Se connecter
-            </v-btn>
-          </v-flex>
-        </v-layout>
-      </form>
-  </v-container>
-  </v-form>
+      <v-text-field
+        v-model="email"
+        :rules="emailRules"
+        label="E-mail"
+        required
+      ></v-text-field>
+      <v-text-field
+        v-model="password"
+        @click:append="showPassword ? 'visibility_off' : 'visibility'"
+        :rules="[passwordRules.required, passwordRules.min]"
+        :type="showPassword ? 'text' : 'password'"
+        label="Password"
+        hint="At least 5 characters"
+        counter
+        @click:append-cb="prependIconCall"
+      ></v-text-field>
+      <v-checkbox
+        v-model="checkbox"
+        label="Rester connecté"
+        required
+      ></v-checkbox>
+      <v-btn large style="width:100%;"
+        color="info"
+        type="submit"
+        :disabled="!valid"
+          @click="authentification"
+        >
+        Se connecter
+      </v-btn>
+      <hr>
+    </v-form>
 </template>
 
 <script>
@@ -52,6 +47,7 @@ export default {
       email: "",
       password: "",
       error: null,
+      checkbox: false,
       showPassword: false,
       emailRules: [
         v => !!v || 'E-mail is required',
@@ -88,5 +84,13 @@ export default {
 }
 </script>
 
-<style lang="css">
+<style lang="scss" scoped>
+.login-form {
+  background-color: #f5f5f5;
+  padding: 20px;
+  .v-btn {
+    margin: 0px;
+    margin-bottom: 20px;
+  }
+}
 </style>

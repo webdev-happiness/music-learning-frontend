@@ -5,7 +5,6 @@ import Preview from '@/views/courses/Preview.vue';
 import About from '@/views/About.vue';
 import LandingPage from '@/views/courses/LandingPage.vue';
 import Lesson from '@/views/lessons/lesson.vue';
-import Logination from '@/views/user/Logination.vue';
 import MyAccount from '@/views/user/MyAccount.vue';
 
 import store from './store/store'; // your vuex store
@@ -31,25 +30,25 @@ export default new Router({
       children: [
         {
           path: '/:slug',
-          name: "Preview",
-          component: Preview
+          name: 'Preview',
+          component: Preview,
         },
         {
           path: '/',
-          name: "PreviewDefault",
-          component: Preview
+          name: 'PreviewDefault',
+          component: Preview,
         },
       ],
     },
     {
       path: '/formation/:slug',
-      name: "LandingPage",
-      component: LandingPage
+      name: 'LandingPage',
+      component: LandingPage,
     },
     {
       path: '/go/:formation/:lesson',
       name: 'Lesson',
-      component: Lesson
+      component: Lesson,
     },
     {
       path: '/about',
@@ -58,14 +57,9 @@ export default new Router({
     },
     {
       path: '/user',
-      name: "MyAccount",
+      name: 'MyAccount',
       component: MyAccount,
-      beforeEnter: ifAuthenticated
-    },
-    {
-      path: '/user/login',
-      name: 'Logination',
-      component: Logination
+      beforeEnter: ifAuthenticated,
     },
   ],
 });

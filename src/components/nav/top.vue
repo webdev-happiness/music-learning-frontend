@@ -16,19 +16,25 @@
         </v-list-tile>
       </v-list>
     </v-menu>
-    <v-btn flat :to="{name:'Logination'}" v-else>connection</v-btn>
+    <v-btn flat @click.prevent="dialog = true" v-else>connection</v-btn>
+    <v-dialog v-if="userInfos.username == undefined" v-model="dialog"
+      max-width="500">
+      <loginForm />
+    </v-dialog>
   </v-toolbar-items>
 </template>
 
 <script>
 import store from '@/store/store.js';
 import { mapGetters } from 'vuex';
+import loginForm from '@/views/user/Logination.vue';
 export default {
   name: "TopNav",
   store: store,
+  components: {loginForm},
   data(){
     return {
-
+      dialog : false
     }
   },
   computed:{
