@@ -2,37 +2,40 @@
   <v-form class="login"  v-model="valid" lazy-validation>
   <v-container>
       <h1>Sign in</h1>
-      <p v-if="msg">{{msg}}</p>
-      <v-layout row wrap>
-        <v-flex xs12 sm6 pr-5>
-          <v-text-field
-            v-model="email"
-            :rules="emailRules"
-            label="E-mail"
-            required
-          ></v-text-field>
-        </v-flex>
-        <v-flex xs12 sm6>
-          <v-text-field
-            v-model="password"
-            @click:append="showPassword ? 'visibility_off' : 'visibility'"
-            :rules="[passwordRules.required, passwordRules.min]"
-            :type="showPassword ? 'text' : 'password'"
-            label="Password"
-            hint="At least 5 characters"
-            counter
-            @click:append-cb="prependIconCall"
-          ></v-text-field>
-        </v-flex>
-        <v-flex xs1>
-          <v-btn
-          :disabled="!valid"
-            @click="login"
-          >
-            Se connecter
-          </v-btn>
-        </v-flex>
-      </v-layout>
+      <p v-if="error" class="red--text">{{error.message}}</p>
+      <form @submit.prevent="authentification">
+        <v-layout row wrap>
+          <v-flex xs12 sm6 pr-5>
+            <v-text-field
+              v-model="email"
+              :rules="emailRules"
+              label="E-mail"
+              required
+            ></v-text-field>
+          </v-flex>
+          <v-flex xs12 sm6>
+            <v-text-field
+              v-model="password"
+              @click:append="showPassword ? 'visibility_off' : 'visibility'"
+              :rules="[passwordRules.required, passwordRules.min]"
+              :type="showPassword ? 'text' : 'password'"
+              label="Password"
+              hint="At least 5 characters"
+              counter
+              @click:append-cb="prependIconCall"
+            ></v-text-field>
+          </v-flex>
+          <v-flex xs1>
+            <v-btn
+            type="submit"
+            :disabled="!valid"
+              @click="authentification"
+            >
+              Se connecter
+            </v-btn>
+          </v-flex>
+        </v-layout>
+      </form>
   </v-container>
   </v-form>
 </template>
@@ -48,7 +51,7 @@ export default {
       valid: false,
       email: "",
       password: "",
-      msg: "",
+      error: null,
       showPassword: false,
       emailRules: [
         v => !!v || 'E-mail is required',
@@ -65,7 +68,7 @@ export default {
     prependIconCall(){
       this.showPassword = !this.showPassword;
     },
-    login() {
+    authentification() {
       let user = {
         identifier: this.email,
         password: this.password
@@ -77,7 +80,7 @@ export default {
         },
         (err)=>{
           console.log(err)
-          this.msg =  err.response.data.message;
+          this.error =  err;
         }
       )
     }
