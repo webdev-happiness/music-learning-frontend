@@ -6,17 +6,26 @@
           alt="John"
         >
       </v-avatar>
-      <form @submit.prevent="comment" class="comment-form_form">
-        <v-textarea
-          :loading="loading"
-          placeholder="Votre commentaire ici..."
-          height="1"
-          no-resize
-          full-width
-          v-model="content"
-          hint="Hint text"/>
-         <v-btn flat right color="info" @click="comment">Commenter</v-btn>
-      </form>
+      <v-form @submit.prevent="comment" class="comment-form_form">
+        <v-layout row wrap>
+          <v-flex xs12>
+            <v-textarea
+              style="display:block;"
+              row-height="10"
+              :rows="1"
+              :loading="loading"
+              placeholder="Votre commentaire ici..."
+              @keyup.native="isTyping"
+              no-resize
+              full-width
+              v-model="content"/>
+            </v-textarea>
+          </v-flex>
+          <v-flex xs12 text-xs-right>
+            <v-btn :disabled="!typing" :right="true" color="info" @click="comment">Commenter</v-btn>
+          </v-flex>
+        </v-layout>
+      </v-form>
     </v-layout>
 </template>
 
@@ -28,8 +37,9 @@ export default {
   store,
   data() {
     return {
-      content: '',
+      content: undefined,
       loading: false,
+      typing: false,
     }
   },
   methods: {
@@ -40,6 +50,14 @@ export default {
           this.loading = false;
           this.content = "";
         });
+    },
+    isTyping() {
+      if(this.content.length > 0) {
+        this.typing = true;
+      }
+      else{
+        this.typing = false;
+      }
     }
   },
   computed: {
@@ -52,7 +70,7 @@ export default {
 
 <style lang="scss" scoped>
 .comment-form{
-  margin: 15px 0px 25px 0px;
+  margin: 15px 0px 15px 0px;
   .comment-form_form{
     padding-left: 15px;
     width: 100%;
