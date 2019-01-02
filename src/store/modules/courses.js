@@ -69,78 +69,19 @@ export default {
     /*
     * Liste un certain nombre de cours (uniquement pour la présentation)
     */
-    getList: (context, payload) => {
-      context.commit('ui/LOADING', true, { root: true });
+    getList(context, payload) {
       return new Promise((resolve, reject) => {
-        setTimeout(() => {
-          let courses = [];
-          for (let index = 0; index < 10; index++) {
-            courses.push({
-              id: index,
-              title: faker.lorem.sentence(),
-              thumbnail: 'https://picsum.photos/2000/600?image=' + index,
-              slug: faker.lorem.sentence()
-                .replace(/[^a-z0-9 -]/g, '') // remove invalid chars
-                .replace(/\s+/g, '-') // collapse whitespace and replace by -
-                .replace(/-+/g, '-'),
-              description: faker.lorem.sentences(),
-              content: faker.lorem.sentences() + faker.lorem.sentences() + faker.lorem.sentences(),
-              lessons: [
-                {
-                  title: faker.lorem.sentence(),
-                  description: faker.lorem.sentences(),
-                },
-                {
-                  title: faker.lorem.sentence(),
-                  description: faker.lorem.sentences(),
-                },
-                {
-                  title: faker.lorem.sentence(),
-                  description: faker.lorem.sentences(),
-                },
-                {
-                  title: faker.lorem.sentence(),
-                  description: faker.lorem.sentences(),
-                },
-              ],
-              reviews: [
-                {
-                  author: {
-                    username: faker.internet.userName(),
-                    avatar: faker.internet.avatar(),
-                  },
-                  content: faker.lorem.sentences(),
-                },
-                {
-                  author: {
-                    username: faker.internet.userName(),
-                    avatar: faker.internet.avatar(),
-                  },
-                  content: faker.lorem.sentences(),
-                },
-                {
-                  author: {
-                    username: faker.internet.userName(),
-                    avatar: faker.internet.avatar(),
-                  },
-                  content: faker.lorem.sentences(),
-                },
-                {
-                  author: {
-                    username: faker.internet.userName(),
-                    avatar: faker.internet.avatar(),
-                  },
-                  content: faker.lorem.sentences(),
-                },
-              ],
-            });
-          }
-          context.commit('LIST', courses);
-          context.commit('ui/LOADING', false, { root: true });
-          resolve(courses);
-        }, 2000);
+        api.get('/courses')
+          .then((response) => {
+            context.commit('LIST', response.data);
+            resolve(response);
+          })
+          .catch((err) => {
+
+            context.commit('ui/ERROR_SETTING', { message: 'Network fail !' }, { root: true });
+            reject(err);
+          });
       });
     },
-
-  }
-}
+  },
+};

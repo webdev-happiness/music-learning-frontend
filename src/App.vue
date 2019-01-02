@@ -24,6 +24,22 @@
         <router-view/>
       <!-- END MAIN CONTENT -->
     </v-content>
+    <v-snackbar
+    v-if="error"
+     v-model="snackbar"
+     :bottom="true"
+     :right="true"
+     :timeout="5000"
+   >
+     {{ error.message }}
+     <v-btn
+       color="pink"
+       flat
+       @click="snackbar = false"
+     >
+       Close
+     </v-btn>
+   </v-snackbar>
   </v-app>
 </template>
 
@@ -39,7 +55,8 @@ export default {
   components: {LeftNav, TopNav},
   data() {
     return {
-      drawer: false
+      drawer: false,
+      snackbar : false
     };
   },
   mounted() {
@@ -50,6 +67,12 @@ export default {
       this.$store.dispatch('auth/checkToken');
     }
   },
+  computed: {
+    error() {
+      this.snackbar = true;
+      return this.$store.getters['ui/error'];
+    }
+  }
 };
 </script>
 

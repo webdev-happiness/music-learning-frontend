@@ -1,7 +1,7 @@
 <template>
   <div class="preview" v-if="current">
     <v-img
-          :src="current.thumbnail"
+          :src="'http://strapi.websylvain.com' + current.thumbnail.url"
           max-height="300"
           aspect-ratio="1"
           class="grey lighten-2 thumbnail"
@@ -22,7 +22,7 @@
       </router-link>
     </h2>
     <p>temps: 1h50 </p>
-    <p>auteur: admin </p>
+    <p>auteur: {{current.user.username}} </p>
     <p>chapitres: {{current.lessons.length}}</p>
     <p class="preview-description">{{current.description}}</p>
     <p class="preview-average">
