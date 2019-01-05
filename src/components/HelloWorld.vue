@@ -1,8 +1,8 @@
 <template>
   <div class="hello">
     <v-container  fluid>
-      <v-layout row wrap class="courses-list" >
-        <v-flex sm4  v-if="courses" v-for="(c, index) in courses">
+      <v-layout row wrap class="courses-list">
+        <v-flex sm4  v-if="courses[0]" v-for="(c, index) in courses">
           <v-card>
             <v-img
                   :src="'http://strapi.websylvain.com' + c.thumbnail.url"

@@ -14,6 +14,15 @@
         </div>
       </v-layout>
       <h1 class="display-3">{{current.title}}</h1>
+      <v-layout row wrap align-center>
+        <v-rating :value="4" />
+        <div class="">
+          <p class="subheading"
+          style="padding-left:25px; padding-bottom:0px;
+          margin-bottom:0px;">8 avis ont été donnés.</p>
+
+        </div>
+      </v-layout>
       <p class="subheading">{{current.description}}</p>
       <p class="text-xs-left "><v-btn round dark :to="{name:'Lesson', params: {formation: current.slug, lessonId: 0}}">Démarrer la formation</v-btn></p>
     </header>
@@ -26,9 +35,6 @@
             </v-tab>
             <v-tab ripple>
               Avis
-            </v-tab>
-            <v-tab ripple>
-              Communauté
             </v-tab>
             <v-tab-item> <!-- Resume -->
               <v-container v-html="current.content">
@@ -51,10 +57,6 @@
                   </template>
                 </v-list>
                 <p v-else>Pas d'avis pour le moment...</p>
-              </v-container>
-            </v-tab-item>
-            <v-tab-item> <!-- Resume -->
-              <v-container v-html="current.content">
               </v-container>
             </v-tab-item>
           </v-tabs>

@@ -159,7 +159,6 @@
           <div class="module">
             <h3 class="title">Auteur</h3>
             <v-layout row wrap align-center>
-              <v-flex xs3>
                 <v-badge overlap  color="green" style="margin-top:10px;">
                   <span slot="badge">3</span>
                   <v-avatar>
@@ -169,11 +168,10 @@
                     />
                   </v-avatar>
                 </v-badge>
-              </v-flex>
-              <v-flex xs9>
-                <h4 >PASTOR Sylvain</h4>
-                <small>Posté le ....</small>
-              </v-flex>
+                <div style="margin-left:20px;">
+                  <h4 >PASTOR Sylvain</h4>
+                  <small>Posté le {{lesson.createdAt}}</small>
+                </div>
             </v-layout>
           </div>
           <div class="module">
