@@ -1,9 +1,21 @@
 <template>
   <div class="presentation" v-if="current" >
     <header class="hero" :style="'background-image: url('+ current.thumbnail +');'">
+      <v-layout row wrap align-center>
+        <v-avatar color="grey darken-3">
+          <v-img
+            class="elevation-6"
+            src="https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairShortCurly&accessoriesType=Prescription02&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&clotheColor=White&eyeType=Default&eyebrowType=DefaultNatural&mouthType=Default&skinColor=Light"
+          ></v-img>
+        </v-avatar>
+        <div class="">
+          <p class="subheading" style="padding-left:25px; padding-bottom:0px; margin-bottom:0px;">Publié par {{current.user.username}} dans la catégorie cover</p>
+
+        </div>
+      </v-layout>
       <h1 class="display-3">{{current.title}}</h1>
-      <p>{{current.description}}</p>
-      <p class="text-xs-left"><v-btn round dark :to="{name:'Lesson', params: {formation: current.slug, lessonId: 0}}">Démarrer la formation</v-btn></p>
+      <p class="subheading">{{current.description}}</p>
+      <p class="text-xs-left "><v-btn round dark :to="{name:'Lesson', params: {formation: current.slug, lessonId: 0}}">Démarrer la formation</v-btn></p>
     </header>
     <section>
       <v-layout row wrap>

@@ -1,45 +1,52 @@
 <template>
   <div class="preview" v-if="current">
-    <v-img
-          :src="'http://strapi.websylvain.com' + current.thumbnail.url"
-          max-height="300"
-          aspect-ratio="1"
-          class="grey lighten-2 thumbnail"
-        >
-          <v-layout
-            slot="placeholder"
-            fill-height
-            align-center
-            justify-center
-            ma-0
+    <v-card>
+      <v-img
+            :src="'http://strapi.websylvain.com' + current.thumbnail.url"
+            max-height="300"
+            aspect-ratio="1"
+            class="grey lighten-2 thumbnail"
           >
-            <v-progress-circular indeterminate></v-progress-circular>
-          </v-layout>
-    </v-img>
-    <h2 class="display-1 preview-title">
-      <router-link :to=" { name: 'LandingPage', params: {slug: current.slug} }">
-          {{current.title}}
-      </router-link>
-    </h2>
-    <p>temps: 1h50 </p>
-    <p>auteur: {{current.user.username}} </p>
-    <p>chapitres: {{current.lessons.length}}</p>
-    <p class="preview-description">{{current.description}}</p>
-    <p class="preview-average">
-      <v-icon
-        color="grey lighten-1"
-      >star</v-icon>
-      <v-icon
-        color="grey lighten-1"
-      >star</v-icon>
-      <v-icon
-        color="grey lighten-1"
-      >star</v-icon>
-      <v-icon
-        color="grey lighten-1"
-      >star</v-icon>
-    </p>
-    <p class="preview-community">1500 inscrits !</p>
+            <v-layout
+              slot="placeholder"
+              fill-height
+              align-center
+              justify-center
+              ma-0
+            >
+              <v-progress-circular indeterminate></v-progress-circular>
+            </v-layout>
+      </v-img>
+      <v-card-title primary-title>
+        <h2>
+          <router-link :to=" { name: 'LandingPage', params: {slug: current.slug} }">
+            {{current.title}}
+          </router-link>
+        </h2>
+      </v-card-title>
+      <v-card-actions>
+        <v-list-tile class="grow">
+          <v-list-tile-avatar color="grey darken-3">
+            <v-img
+              class="elevation-6"
+              src="https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairShortCurly&accessoriesType=Prescription02&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&clotheColor=White&eyeType=Default&eyebrowType=DefaultNatural&mouthType=Default&skinColor=Light"
+            ></v-img>
+          </v-list-tile-avatar>
+
+          <v-list-tile-content>
+            <v-list-tile-title>{{current.user.username}}, Il y a 5 jours</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+      </v-card-actions>
+      <v-card-text>
+        <p>temps: 1h50 </p>
+        <p>auteur: {{current.user.username}} </p>
+        <p>chapitres: {{current.lessons.length}}</p>
+        <p class="preview-description">{{current.description}}</p>
+
+      </v-card-text>
+
+    </v-card>
   </div>
 </template>
 

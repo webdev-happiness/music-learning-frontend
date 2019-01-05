@@ -8,7 +8,7 @@
     <v-toolbar app flat>
       <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
       <v-toolbar-title class="headline text-uppercase">
-        <router-link :to="{name: 'PreviewDefault'}">
+        <router-link :to="{name: 'HelloWorld'}">
           <span>Rocking</span>
           <span class="font-weight-light">Place</span>
         </router-link>

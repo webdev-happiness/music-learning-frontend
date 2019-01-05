@@ -1,35 +1,66 @@
 <template>
   <div class="hello">
-    <v-container  fluid v-if="courses">
-      <v-layout>
-        <v-flex md4>
-          <router-view/>
-        </v-flex>
-        <v-flex md8 class="courses-list">
-          <v-list two-line class="transparent pt-0" v-if="courses[0]">
-            <template v-for="(item, index) in courses">
-              <v-list-tile
-                :key="item.title"
-                avatar
-                ripple
-                :to="{ name: 'Preview', params: { slug: item.slug }}"
-              >
+    <v-container  fluid>
+      <v-layout row wrap class="courses-list" >
+        <v-flex sm4  v-if="courses" v-for="(c, index) in courses">
+          <v-card>
+            <v-img
+                  :src="'http://strapi.websylvain.com' + c.thumbnail.url"
+                  max-height="300"
+                  aspect-ratio="1"
+                  class="grey lighten-2 thumbnail"
+                >
+                <v-container
+                  fill-height
+                  fluid
+                  pa-2
+                >
+                  <v-layout fill-height>
+                    <v-flex xs12 align-end flexbox>
+                      <v-rating :value="4" readonly></v-rating>
+                    </v-flex>
+                  </v-layout>
+                </v-container>
+            </v-img>
+            <v-card-title primary-title>
+              <h2>
+                <router-link :to=" { name: 'LandingPage', params: {slug: c.slug} }">
+                  {{c.title}}
+                </router-link>
+              </h2>
+            </v-card-title>
+            <v-card-actions>
+              <v-list-tile class="grow">
+                <v-list-tile-avatar color="grey darken-3">
+                  <v-img
+                    class="elevation-6"
+                    src="https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairShortCurly&accessoriesType=Prescription02&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&clotheColor=White&eyeType=Default&eyebrowType=DefaultNatural&mouthType=Default&skinColor=Light"
+                  ></v-img>
+                </v-list-tile-avatar>
+
                 <v-list-tile-content>
-                  <v-list-tile-title>{{ item.title }}</v-list-tile-title>
-                  <v-list-tile-sub-title class="text--primary"></v-list-tile-sub-title>
-                  <v-list-tile-sub-title>{{ item.description }}</v-list-tile-sub-title>
+                  <v-list-tile-title>{{c.user.username}}</v-list-tile-title>
                 </v-list-tile-content>
-                <v-list-tile-action>
-                  <v-list-tile-action-text>45:00 mn</v-list-tile-action-text>
-                  <v-icon
-                    color="grey lighten-1"
-                  >star_border</v-icon>
-                </v-list-tile-action>
+
+                <v-layout
+                  align-center
+                  justify-end
+                >
+                  <v-icon class="mr-1">av_timer</v-icon>
+                  <span class="subheading mr-2">1h00</span>
+                  <span class="mr-1">·</span>
+                  <v-icon class="mr-1">playlist_play</v-icon>
+                  <span class="subheading">{{c.lessons.length}}</span>
+                </v-layout>
               </v-list-tile>
-              <v-divider v-if="index + 1 < courses.length" :key="index"></v-divider>
-            </template>
-          </v-list>
-          <loader v-else/>
+            </v-card-actions>
+            <v-card-text>
+              <p class="preview-description">{{c.description}}</p>
+            </v-card-text>
+          </v-card>
+        </v-flex>
+        <v-flex sm12  v-else>
+          <loader/>
         </v-flex>
       </v-layout>
     </v-container>

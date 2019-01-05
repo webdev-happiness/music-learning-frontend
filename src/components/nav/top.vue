@@ -1,6 +1,6 @@
 <template>
   <v-toolbar-items>
-    <v-btn flat :to="{name: 'PreviewDefault'}">Accueil</v-btn>
+    <v-btn flat :to="{name: 'HelloWorld'}">Accueil</v-btn>
     <v-btn flat :to="{name: 'About'}">A propos</v-btn>
     <v-menu left v-if="isAuthenticated" class="transparent">
       <v-btn flat slot="activator" class="transparent" >

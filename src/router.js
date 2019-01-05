@@ -1,7 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import HelloWorld from '@/components/HelloWorld.vue';
-import Preview from '@/views/courses/Preview.vue';
 import About from '@/views/About.vue';
 import LandingPage from '@/views/courses/LandingPage.vue';
 import Lesson from '@/views/lessons/lesson.vue';
@@ -26,19 +25,8 @@ export default new Router({
   routes: [
     {
       path: '/',
+      name: 'HelloWorld',
       component: HelloWorld,
-      children: [
-        {
-          path: '/:slug',
-          name: 'Preview',
-          component: Preview,
-        },
-        {
-          path: '/',
-          name: 'PreviewDefault',
-          component: Preview,
-        },
-      ],
     },
     {
       path: '/formation/:slug',
