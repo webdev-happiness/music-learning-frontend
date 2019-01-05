@@ -60,7 +60,26 @@
           </v-tabs>
         </v-flex>
         <v-flex md4 class="summary">
-          <h2 class="display-1">Contenu</h2>
+          <header>
+
+            <v-layout
+              align-center
+              row wrap
+            >
+            <v-flex xs6>
+              <h2>Contenu du cours</h2>
+            </v-flex>
+            <v-flex xs6 text-right>
+              <div  style="float:right;">
+                  <v-icon class="mr-1">av_timer</v-icon>
+                  <span class="subheading mr-2">1h00</span>
+                  <span class="mr-1">·</span>
+                  <v-icon class="mr-1">playlist_play</v-icon>
+                  <span class="subheading">{{current.lessons.length}}</span>
+              </div>
+            </v-flex>
+            </v-layout>
+          </header>
           <v-list v-if="current.lessons[0]" two-line dark>
             <div v-for="(l,i) in current.lessons" :key="i">
               <v-list-tile ripple :to="{name:'Lesson', params: {formation: current.slug, lesson: i}}">
