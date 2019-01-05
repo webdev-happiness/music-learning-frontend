@@ -5,12 +5,19 @@ import api from '../api';
 export default {
   namespaced: true,
   state: {
-    comments: []
+    comments: [],
+    reply_id: 0,
   },
   mutations: {
     SET_COMMENTS(state, comments) {
       state.comments = comments;
     },
+    ADD_COMMENT(state, comment) {
+      console.log('COMMENTé !', comment);
+    },
+    REPLY_TO(state, id) {
+      state.reply_id = id;
+    }
   },
   getters: {
     getAll(state) {
@@ -18,6 +25,14 @@ export default {
     },
   },
   actions: {
+    comment(context, payload) {
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve(true);
+          context.commit('ADD_COMMENT', payload);
+        }, 4000);
+      });
+    },
     loadAll(context, payload) {
       return new Promise((resolve, reject) => {
         setTimeout(() => {
