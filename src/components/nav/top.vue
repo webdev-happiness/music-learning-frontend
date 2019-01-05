@@ -1,9 +1,15 @@
 <template>
   <v-toolbar-items>
-    <v-btn flat :to="{name: 'PreviewDefault'}">Accueil</v-btn>
+    <v-btn flat :to="{name: 'HelloWorld'}">Accueil</v-btn>
     <v-btn flat :to="{name: 'About'}">A propos</v-btn>
     <v-menu left v-if="isAuthenticated" class="transparent">
       <v-btn flat slot="activator" class="transparent" >
+        <v-avatar color="grey darken-3"
+          size="35" style="margin-right:20px;">
+          <v-img
+            src="https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairShortCurly&accessoriesType=Prescription02&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&clotheColor=White&eyeType=Default&eyebrowType=DefaultNatural&mouthType=Default&skinColor=Light"
+          ></v-img>
+        </v-avatar>
         {{userInfos.username}}
         <v-icon right>more_vert</v-icon>
       </v-btn>

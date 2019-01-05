@@ -1,9 +1,30 @@
 <template>
   <div class="presentation" v-if="current" >
     <header class="hero" :style="'background-image: url('+ current.thumbnail +');'">
+      <v-layout row wrap align-center>
+        <v-avatar color="grey darken-3">
+          <v-img
+            class="elevation-6"
+            src="https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairShortCurly&accessoriesType=Prescription02&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&clotheColor=White&eyeType=Default&eyebrowType=DefaultNatural&mouthType=Default&skinColor=Light"
+          ></v-img>
+        </v-avatar>
+        <div class="">
+          <p class="subheading" style="padding-left:25px; padding-bottom:0px; margin-bottom:0px;">Publié par {{current.user.username}} dans la catégorie cover</p>
+
+        </div>
+      </v-layout>
       <h1 class="display-3">{{current.title}}</h1>
-      <p>{{current.description}}</p>
-      <p class="text-xs-left"><v-btn round dark :to="{name:'Lesson', params: {formation: current.slug, lessonId: 0}}">Démarrer la formation</v-btn></p>
+      <v-layout row wrap align-center>
+        <v-rating :value="4" />
+        <div class="">
+          <p class="subheading"
+          style="padding-left:25px; padding-bottom:0px;
+          margin-bottom:0px;">8 avis ont été donnés.</p>
+
+        </div>
+      </v-layout>
+      <p class="subheading">{{current.description}}</p>
+      <p class="text-xs-left "><v-btn round dark :to="{name:'Lesson', params: {formation: current.slug, lessonId: 0}}">Démarrer la formation</v-btn></p>
     </header>
     <section>
       <v-layout row wrap>
@@ -14,9 +35,6 @@
             </v-tab>
             <v-tab ripple>
               Avis
-            </v-tab>
-            <v-tab ripple>
-              Communauté
             </v-tab>
             <v-tab-item> <!-- Resume -->
               <v-container v-html="current.content">
@@ -41,14 +59,29 @@
                 <p v-else>Pas d'avis pour le moment...</p>
               </v-container>
             </v-tab-item>
-            <v-tab-item> <!-- Resume -->
-              <v-container v-html="current.content">
-              </v-container>
-            </v-tab-item>
           </v-tabs>
         </v-flex>
         <v-flex md4 class="summary">
-          <h2 class="display-1">Contenu</h2>
+          <header>
+
+            <v-layout
+              align-center
+              row wrap
+            >
+            <v-flex xs6>
+              <h2>Contenu du cours</h2>
+            </v-flex>
+            <v-flex xs6 text-right>
+              <div  style="float:right;">
+                  <v-icon class="mr-1">av_timer</v-icon>
+                  <span class="subheading mr-2">1h00</span>
+                  <span class="mr-1">·</span>
+                  <v-icon class="mr-1">playlist_play</v-icon>
+                  <span class="subheading">{{current.lessons.length}}</span>
+              </div>
+            </v-flex>
+            </v-layout>
+          </header>
           <v-list v-if="current.lessons[0]" two-line dark>
             <div v-for="(l,i) in current.lessons" :key="i">
               <v-list-tile ripple :to="{name:'Lesson', params: {formation: current.slug, lesson: i}}">
