@@ -62,7 +62,7 @@ export default {
           .then((response) => {
             console.log(response.data);
             context.commit('CURRENT', response.data);
-            resolve(response);
+            resolve(response.data);
           })
           .catch((err) => {
             console.log(err);

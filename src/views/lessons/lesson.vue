@@ -229,7 +229,7 @@ export default {
   watch: {
     $route(to, from) {
       this.loading = true;
-      this.$store.dispatch('courses/getCurrent', this.lessonId)
+      this.$store.dispatch('courses/getCurrent', to.params.lesson)
         .then(
           () => {
             this.loading = false;
