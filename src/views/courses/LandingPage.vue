@@ -20,7 +20,6 @@
           <p class="subheading"
           style="padding-left:25px; padding-bottom:0px;
           margin-bottom:0px;">8 avis ont été donnés.</p>
-
         </div>
       </v-layout>
       <p class="subheading">{{current.description}}</p>
@@ -84,7 +83,7 @@
           </header>
           <v-list v-if="current.lessons[0]" two-line dark>
             <div v-for="(l,i) in current.lessons" :key="i">
-              <v-list-tile ripple :to="{name:'Lesson', params: {formation: current.slug, lesson: i}}">
+              <v-list-tile ripple :to="{name:'Lesson', params: {formation: current.slug, lesson: l.id}}">
                 <v-list-tile-content>
                   <v-list-tile-title>{{l.title}}</v-list-tile-title>
                   <v-list-tile-sub-title>lorem ipsum dolor sit amet</v-list-tile-sub-title>

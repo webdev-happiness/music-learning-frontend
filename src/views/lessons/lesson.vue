@@ -23,16 +23,16 @@
     <v-layout row child-flex wrap>
         <div>
           <v-toolbar flat>
-            <v-menu :nudge-width="100">
+            <v-menu :nudge-width="100" v-if="course">
                 <v-toolbar-title slot="activator">
                   <span>
-                    {{lessonId + 1}} / {{course.lessons.length}} leçons
+                    {{indexInCourse + 1}} / {{course.lessons.length}} leçons
                   </span>
                   <v-icon>arrow_drop_down</v-icon>
                 </v-toolbar-title>
                 <v-list>
                   <v-list-tile v-for="(l,i) in course.lessons" :key="i"
-                    :to="{name:'Lesson', params:{formation: course.slug, lesson: i }}">
+                    :to="{name:'Lesson', params:{formation: course.slug, lesson: l.id }}">
                     <v-list-tile-title>{{l.title}}</v-list-tile-title>
                   </v-list-tile>
                 </v-list>
@@ -41,14 +41,14 @@
           </v-toolbar>
         </div>
 
-        <div>
+        <div v-if="course">
           <v-toolbar flat hidden-xs-only>
             <v-spacer></v-spacer>
-            <router-link class="text-reveal prev" :class="{'loaded' : !loading}" v-if="course.lessons[lessonId - 1]" :to="{name:'Lesson', params:{formation: course.slug, lesson: lessonId - 1 }}">
-              <span><v-icon small>arrow_back</v-icon> {{course.lessons[lessonId - 1].title}}</span>
+            <router-link v-if="previous" class="text-reveal prev" :class="{'loaded' : !loading}" :to="{name:'Lesson', params:{formation: course.slug, lesson: previous.id }}">
+              <span><v-icon small>arrow_back</v-icon> {{previous.title}}</span>
             </router-link>
-            <router-link class="text-reveal next" :class="{'loaded' : !loading}"  v-if="course.lessons[lessonId + 1]" :to="{name:'Lesson', params:{formation: course.slug, lesson: lessonId + 1 }}">
-              <span>{{course.lessons[lessonId + 1].title}} <v-icon small>arrow_forward</v-icon></span>
+            <router-link v-if="next" class="text-reveal next" :class="{'loaded' : !loading}" :to="{name:'Lesson', params:{formation: course.slug, lesson: next.id }}">
+              <span>{{next.title}} <v-icon small>arrow_forward</v-icon></span>
             </router-link>
           </v-toolbar>
         </div>
@@ -70,7 +70,7 @@
                 Communauté
               </v-tab>
               <v-tab-item>
-                <div class="module" v-html="lesson.description">
+                <div class="module" v-html="lesson.content">
                 </div>
               </v-tab-item>
               <v-tab-item>
@@ -223,32 +223,58 @@ export default {
     return {
       active: 1,
       lessonId: 0,
+      loading:true
     };
   },
   watch: {
     $route(to, from) {
-      this.$store.dispatch('courses/getCurrent', this.lessonId).then(() => {
-        this.lessonId = parseInt(to.params.lesson);
-      });
+      this.loading = true;
+      this.$store.dispatch('courses/getCurrent', this.lessonId)
+        .then(
+          () => {
+            this.loading = false;
+            this.lessonId = to.params.lesson;
+          }
+        )
+        .catch(() => {
+
+          this.loading = false;
+          this.$router.push({to: '404'});
+        });
     },
   },
   mounted() {
-    this.lessonId = parseInt(this.$route.params.lesson);
-    this.$store.dispatch('courses/getCurrent', this.lessonId);
+    this.lessonId = this.$route.params.lesson;
+    this.$store.dispatch('courses/getCurrent', this.lessonId)
+      .then(() => {
+        this.loading = false;
+      })
+      .catch(() => {
+
+        this.loading = false;
+        this.$router.push({to: '404'});
+      });
   },
   methods: {
 
   },
   computed: {
-    loading() {
-      return this.$store.getters['ui/loading'];
+    lesson() {
+      return this.$store.getters['courses/currentLesson'];
     },
     course() {
-      return this.$store.getters['courses/current'];
+      return this.$store.getters['courses/findBySlug'](this.$route.params.formation);
     },
-    lesson() {
-      return this.course.lessons[this.lessonId];
+    indexInCourse() {
+      let arr = this.course.lessons;
+      return arr.findIndex(e => e.id == this.lesson.id)
     },
+    next(){
+      return this.course.lessons[this.indexInCourse + 1];
+    },
+    previous() {
+      return this.course.lessons[this.indexInCourse - 1];
+    }
   },
 };
 </script>
