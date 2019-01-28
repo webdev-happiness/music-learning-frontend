@@ -1,6 +1,4 @@
-import Vue from 'vue';
 import api from '../api';
-import faker from 'faker';
 
 export default {
   namespaced: true,
@@ -22,31 +20,31 @@ export default {
     /*
     * LISTING: SEARCH ENGINE & PREVIEW
     */
-    list: (state) => {
+    list(state) {
       return state.list;
     },
 
     // FIND COURSE LANDING INFO
-    findBySlug: (state) => {
+    findBySlug(state) {
       return (slug) => {
         return state.list.find(e => e.slug === slug);
       };
     },
 
-    getFirst: (state) => {
+    getFirst(state) {
       return state.list[0];
     },
 
     /*
     * VISITED: HISTORIQUE DES COURS
     */
-    findInVisited: (state) => {
+    findInVisited(state) {
       return (slug) => {
         return state.visited.find(e => e.slug === slug);
       };
     },
 
-    currentLesson: (state) => {
+    currentLesson(state) {
       // RETURN CURRENT COURS  E
       return state.current;
     },
@@ -60,21 +58,19 @@ export default {
       return new Promise((resolve, reject) => {
         api.get('/lessons/' + payload)
           .then((response) => {
-            console.log(response.data);
             context.commit('CURRENT', response.data);
             resolve(response.data);
           })
           .catch((err) => {
-            console.log(err);
             reject(err);
-          })
+          });
       });
     },
 
     /*
     * Liste un certain nombre de cours (uniquement pour la présentation)
     */
-    getList(context, payload) {
+    getList(context) {
       return new Promise((resolve, reject) => {
         api.get('/courses')
           .then((response) => {
@@ -82,7 +78,6 @@ export default {
             resolve(response);
           })
           .catch((err) => {
-
             context.commit('ui/ERROR_SETTING', { message: 'Network fail !' }, { root: true });
             reject(err);
           });
