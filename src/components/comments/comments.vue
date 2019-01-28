@@ -20,7 +20,7 @@ export default {
   store,
   props: {
     lessonId: {
-      type: Number,
+      type: String,
       default: undefined,
     },
   },
