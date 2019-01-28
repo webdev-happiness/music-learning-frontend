@@ -1,8 +1,11 @@
 <template>
   <div class="hello">
+    <header>
+      <h1>Nos cours de musique</h1>
+    </header>
     <v-container  fluid>
-      <v-layout row wrap class="courses-list" v-if="courses[0]">
-        <v-flex sm4 v-for="(c, index) in courses">
+      <v-layout row wrap class="courses-list" v-if="!loading">
+        <v-flex sm3 v-for="(c, index) in courses">
           <v-card>
             <v-img
                   :src="'http://strapi.websylvain.com' + c.thumbnail.url"
@@ -87,6 +90,7 @@ export default {
   computed: {
     ...mapGetters({
       courses: 'courses/list',
+      loading: 'ui/loading'
     }),
   },
 };

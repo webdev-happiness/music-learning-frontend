@@ -18,7 +18,7 @@
       <TopNav></TopNav>
       <!-- END TOP NAV -->
     </v-toolbar>
-
+    <vue-progress-bar></vue-progress-bar>
     <v-content>
       <!-- MAIN CONTENT -->
         <router-view/>
