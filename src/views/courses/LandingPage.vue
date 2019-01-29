@@ -23,7 +23,8 @@
         </div>
       </v-layout>
       <p class="subheading">{{current.description}}</p>
-      <p class="text-xs-left "><v-btn round dark :to="{name:'Lesson', params: {formation: current.slug, lessonId: 0}}">Démarrer la formation</v-btn></p>
+      <p class="text-xs-left ">
+        <v-btn round dark :to="{name:'Lesson', params: {formation: current.slug, lesson: current.lessons[0].id}}">Démarrer la formation</v-btn></p>
     </header>
     <section>
       <v-layout row wrap>
@@ -121,7 +122,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
   .hero{
     background-image: url(http://via.placeholder.com/2000x1200);
     background-repeat: no-repeat;
