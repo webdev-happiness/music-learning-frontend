@@ -8,9 +8,9 @@
         </v-flex>
       </v-layout>
     </v-container>
-    <v-container  fluid>
-      <v-layout row wrap class="courses-list" v-if="!loading">
-        <v-flex sm3 v-for="(c, index) in courses">
+    <v-container  grid-list-lg fluid>
+      <v-layout row wrap class="courses-list">
+        <v-flex sm3 v-for="(c, index) in courses"  v-if="!loading">
           <v-card>
             <v-img
                   :src="'http://strapi.websylvain.com' + c.thumbnail.url"
@@ -67,9 +67,7 @@
             </v-card-text>
           </v-card>
         </v-flex>
-      </v-layout>
-      <v-layout row wrap v-else>
-        <v-flex sm12>
+        <v-flex sm12  v-else>
           <loader/>
         </v-flex>
       </v-layout>
@@ -118,7 +116,7 @@ export default {
     background-attachment: fixed;
     position: relative;
     .hero{
-      
+
     }
   }
 
