@@ -23,7 +23,8 @@
         </div>
       </v-layout>
       <p class="subheading">{{current.description}}</p>
-      <p class="text-xs-left "><v-btn round dark :to="{name:'Lesson', params: {formation: current.slug, lessonId: 0}}">Démarrer la formation</v-btn></p>
+      <p class="text-xs-left">
+        <v-btn  v-if="current.lessons[0]" round dark :to="{name:'Lesson', params: {formation: current.slug, lesson: current.lessons[0].id}}">Démarrer la formation</v-btn></p>
     </header>
     <section>
       <v-layout row wrap>
@@ -36,7 +37,10 @@
               Avis
             </v-tab>
             <v-tab-item> <!-- Resume -->
-              <v-container v-html="current.content">
+              <v-container>
+                  <vue-markdown>
+                    {{current.content}}
+                  </vue-markdown>
               </v-container>
             </v-tab-item>
             <v-tab-item> <!-- AVIS-->
@@ -81,7 +85,7 @@
             </v-flex>
             </v-layout>
           </header>
-          <v-list v-if="current.lessons[0]" two-line dark>
+          <v-list v-if="current.lessons" two-line dark>
             <div v-for="(l,i) in current.lessons" :key="i">
               <v-list-tile ripple :to="{name:'Lesson', params: {formation: current.slug, lesson: l.id}}">
                 <v-list-tile-content>
@@ -105,8 +109,11 @@
 <script>
 import store from '@/store/store.js';
 import { mapGetters } from 'vuex';
+import VueMarkdown from 'vue-markdown';
+
 export default {
   name: 'LandingPage',
+  components: {VueMarkdown},
   store,
   data() {
     return {
@@ -121,7 +128,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
   .hero{
     background-image: url(http://via.placeholder.com/2000x1200);
     background-repeat: no-repeat;

@@ -70,8 +70,9 @@
                 Communauté
               </v-tab>
               <v-tab-item>
-                <div class="module" v-html="lesson.content">
-                </div>
+                <vue-markdown>
+                  {{lesson.content}}
+                </vue-markdown>
               </v-tab-item>
               <v-tab-item>
                 <div class="module">
@@ -214,11 +215,12 @@ import store from '@/store/store';
 import loader from '@/components/loading/loader.vue';
 import media from '@/components/Media.vue';
 import comments from '@/components/comments/comments.vue';
+import VueMarkdown from 'vue-markdown';
 
 export default {
   name: 'Lesson',
   store,
-  components: { loader, media, comments },
+  components: { loader, media, comments, VueMarkdown },
   data() {
     return {
       active: 1,

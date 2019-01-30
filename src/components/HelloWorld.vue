@@ -1,8 +1,16 @@
 <template>
   <div class="hello">
-    <v-container  fluid>
-      <v-layout row wrap class="courses-list" v-if="courses[0]">
-        <v-flex sm4 v-for="(c, index) in courses">
+    <v-container fluid tag="header" class="text-xs-center hello-header">
+      <v-layout align-center justify-center row fill-height class="hero">
+        <v-flex xs12>
+          <h1 class="display-4 font-weight-bold text-uppercase">Nos cours de musique</h1>
+          <p class="subheading">L' apprentissage de la musique en mode Open source !</p>
+        </v-flex>
+      </v-layout>
+    </v-container>
+    <v-container  grid-list-lg fluid>
+      <v-layout row wrap class="courses-list">
+        <v-flex sm3 v-for="(c, index) in courses"  v-if="!loading">
           <v-card>
             <v-img
                   :src="'http://strapi.websylvain.com' + c.thumbnail.url"
@@ -59,9 +67,7 @@
             </v-card-text>
           </v-card>
         </v-flex>
-      </v-layout>
-      <v-layout row wrap v-else>
-        <v-flex sm12>
+        <v-flex sm12  v-else>
           <loader/>
         </v-flex>
       </v-layout>
@@ -87,15 +93,31 @@ export default {
   computed: {
     ...mapGetters({
       courses: 'courses/list',
+      loading: 'ui/loading'
     }),
   },
 };
 </script>
 
-<style media="screen">
+<style media="screen" lang="scss">
   .courses-list{
     padding-left: 16px;
     min-height: 50vh;
     position: relative;
   }
+
+  .hello-header{
+    height: 50vh;
+    width:100%;
+    background-image: url(http://via.placeholder.com/2000x1200);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    position: relative;
+    .hero{
+
+    }
+  }
+
 </style>
