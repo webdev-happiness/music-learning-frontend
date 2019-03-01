@@ -9,8 +9,7 @@
           ></v-img>
         </v-avatar>
         <div class="">
-          <p class="subheading" style="padding-left:25px; padding-bottom:0px; margin-bottom:0px;">Publié par {{current.user.username}} dans la catégorie cover</p>
-
+          <p class="subheading" style="padding-left:25px; padding-bottom:0px; margin-bottom:0px;">Publié par {{current.user.username}} dans la catégorie <a href="#">{{current.category.label}}</a></p>
         </div>
       </v-layout>
       <h1 class="display-3">{{current.title}}</h1>

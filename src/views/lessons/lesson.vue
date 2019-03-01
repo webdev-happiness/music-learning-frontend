@@ -176,33 +176,12 @@
             </v-layout>
           </div>
           <div class="module">
-            <h3 class="title">Catégories</h3>
-            <v-list>
-              <v-list-tile>
-                <v-list-tile-content>
-                  <v-list-tile-title>Fusion</v-list-tile-title>
-                </v-list-tile-content>
-              </v-list-tile>
-            <v-divider></v-divider>
-              <v-list-tile>
-                <v-list-tile-content>
-                  <v-list-tile-title>Groove</v-list-tile-title>
-                </v-list-tile-content>
-              </v-list-tile>
-            <v-divider></v-divider>
-              <v-list-tile>
-                <v-list-tile-content>
-                  <v-list-tile-title>Cover</v-list-tile-title>
-                </v-list-tile-content>
-              </v-list-tile>
-            </v-list>
-          </div>
-          <div class="module">
-            <h3 class="title">Tags</h3>
-            <v-chip>Jaco</v-chip>
-            <v-chip>Pastorius</v-chip>
-            <v-chip>Grouve</v-chip>
-            <v-chip>Chicken</v-chip>
+            <h3 class="title">Publie dans <a href="">{{course.category.label}}</a></h3>
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto, totam! 
+              Delectus explicabo facere perferendis quas assumenda repudiandae quam minus 
+              enim eveniet atque non molestiae laboriosam nesciunt provident unde, voluptatem consectetur.
+            </p>
           </div>
         </v-flex>
       </v-layout>

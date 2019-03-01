@@ -24,8 +24,11 @@
                   pa-2
                 >
                   <v-layout fill-height>
-                    <v-flex xs12 align-end flexbox>
+                    <v-flex xs9 align-end flexbox>
                       <v-rating :value="4" readonly></v-rating>
+                    </v-flex>
+                    <v-flex xs3 align-end flexbox class="text-xs-right">
+                      <v-chip>{{c.category.label}}</v-chip>
                     </v-flex>
                   </v-layout>
                 </v-container>
