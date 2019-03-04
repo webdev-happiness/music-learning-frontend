@@ -4,8 +4,8 @@
       class="lesson_header"
       :style="`background-image: url('` + 'https://picsum.photos/2000/600?random' +`');`">
       <v-container grid-list-xl text-xs-center>
-        <v-layout row wrap>
-          <v-flex md12>
+        <v-layout row wrap justify-center>
+          <v-flex md8>
             <div>
               <p class="title">
                 <router-link :to="{name:'LandingPage', params: {slug:course.slug}}">

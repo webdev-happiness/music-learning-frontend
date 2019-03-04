@@ -63,6 +63,9 @@ export default {
     this.$store.dispatch('courses/getList').then(response => {
       console.log(response);
     });
+    this.$store.dispatch('categories/getList').then(response => {
+      console.log(response);
+    });
     if (localStorage.getItem('user-token')) {
       this.$store.dispatch('auth/checkToken');
     }

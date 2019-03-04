@@ -5,12 +5,13 @@
         <v-flex xs12>
           <h1 class="display-4 font-weight-bold text-uppercase">Nos cours de musique</h1>
           <p class="subheading">L' apprentissage de la musique en mode Open source !</p>
+          <categ-list @selected="selected"/>
         </v-flex>
       </v-layout>
     </v-container>
     <v-container  grid-list-lg fluid>
       <v-layout row wrap class="courses-list">
-        <v-flex sm3 v-for="(c, index) in courses"  v-if="!loading">
+        <v-flex sm3 v-for="(c, index) in filteredCourses"  v-if="!loading" :key="index">
           <v-card>
             <v-img
                   :src="'http://strapi.websylvain.com' + c.thumbnail.url"
@@ -24,10 +25,10 @@
                   pa-2
                 >
                   <v-layout fill-height>
-                    <v-flex xs9 align-end flexbox>
+                    <v-flex xs6 align-end flexbox>
                       <v-rating :value="4" readonly></v-rating>
                     </v-flex>
-                    <v-flex xs3 align-end flexbox class="text-xs-right">
+                    <v-flex xs6 align-end flexbox class="text-xs-right">
                       <v-chip>{{c.category.label}}</v-chip>
                     </v-flex>
                   </v-layout>
@@ -79,26 +80,42 @@
 </template>
 
 <script>
-import loader from '@/components/loading/loader.vue';
+import Loader from '@/components/loading/loader.vue';
 import store from '@/store/store';
 import { mapGetters } from 'vuex';
+import CategList from '@/components/CategList.vue';
 
 export default {
   name: 'HelloWorld',
   store,
-  components: {loader},
+  components: {Loader, CategList},
   data() {
     return {
       msg: 'Welcome to Your Vue.js App',
       sortByValue: 'alpha',
+      selectedCateg: null
     };
   },
   computed: {
     ...mapGetters({
       courses: 'courses/list',
+      coursesByCateg: 'courses/findByCateg',
       loading: 'ui/loading'
     }),
+    filteredCourses() {
+      if(this.selectedCateg !== null) {
+        return this.coursesByCateg(this.selectedCateg);
+      }else {
+        return this.courses
+      }
+    }
   },
+  methods: {
+    selected(c) {
+      console.log(c)
+      this.selectedCateg = c
+    }
+  }
 };
 </script>
 

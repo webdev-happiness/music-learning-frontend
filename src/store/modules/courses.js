@@ -31,6 +31,12 @@ export default {
       };
     },
 
+    findByCateg(state) {
+      return (categ) => {
+        return state.list.filter(e => e.category.id === categ.id);
+      };
+    },
+
     getFirst(state) {
       return state.list[0];
     },
