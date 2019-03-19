@@ -1,14 +1,25 @@
 <template>
-    <div class="categ-filters">
-        <ul class="categ-filters__list">
-            <li>
-                <v-chip @click="chose(null)">Tous</v-chip>
-            </li>
-            <li v-for="c in categories" :key="c.id">
-                <v-chip @click="chose(c)">{{c.label}}</v-chip>
-            </li>
-        </ul>
-    </div>
+    <v-menu :nudge-width="100">
+        <v-toolbar-title slot="activator">
+            <span>{{(selected != null) ? selected.label : "Tous"}}</span>
+            <v-icon dark>arrow_drop_down</v-icon>
+        </v-toolbar-title>
+
+        <v-list>
+            <v-list-tile
+                @click="chose(null)"
+            >
+                <v-list-tile-title v-text="'Tous'"></v-list-tile-title>
+            </v-list-tile>
+            <v-list-tile
+                v-for="c in categories"
+                :key="c.id"
+                @click="chose(c)"
+            >
+                <v-list-tile-title v-text="c.label"></v-list-tile-title>
+            </v-list-tile>
+        </v-list>
+    </v-menu>
 </template>
 <script>
 import store from '@/store/store';
@@ -16,6 +27,11 @@ import { mapGetters } from 'vuex';
 
 export default {
     store,
+    data() {
+        return {
+            selected: null,
+        }
+    },
     computed: {
         ...mapGetters({
             categories: 'categories/list',
@@ -23,6 +39,7 @@ export default {
     },
     methods: {
         chose(c) {
+            this.selected = c
             this.$emit('selected', c);
         }
     }

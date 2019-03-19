@@ -3,13 +3,25 @@
     <v-container fluid tag="header" class="text-xs-center hello-header">
       <v-layout align-center justify-center row fill-height class="hero">
         <v-flex xs12>
-          <h1 class="display-4 font-weight-bold text-uppercase">Nos cours de musique</h1>
+          <h1 class="display-3 font-weight-bold text-uppercase">Nos cours de musique</h1>
           <p class="subheading">L' apprentissage de la musique en mode Open source !</p>
-          <categ-list @selected="selected"/>
         </v-flex>
       </v-layout>
     </v-container>
-    <v-container  grid-list-lg fluid>
+    <v-container  grid-list-md>
+      <!-- filter -->
+        <v-toolbar 
+           dark
+            color="" class="mb-4">
+            <categ-list @selected="selected"/>
+            <v-spacer />
+            <v-text-field
+              prepend-icon="search"
+              single-line
+            ></v-text-field>
+        </v-toolbar>
+      <!-- END filter -->
+      <!-- LISTING -->
       <v-layout row wrap class="courses-list">
         <v-flex sm3 v-for="(c, index) in filteredCourses"  v-if="!loading" :key="index">
           <v-card>
@@ -75,6 +87,7 @@
           <loader/>
         </v-flex>
       </v-layout>
+      <!-- END LISTING -->
     </v-container>
   </div>
 </template>
@@ -93,7 +106,7 @@ export default {
     return {
       msg: 'Welcome to Your Vue.js App',
       sortByValue: 'alpha',
-      selectedCateg: null
+      selectedCateg: null,
     };
   },
   computed: {

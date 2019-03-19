@@ -5,7 +5,7 @@
       <LeftNav></LeftNav>
       <!-- END LEFT NAV -->
     </v-navigation-drawer>
-    <v-toolbar app flat>
+    <v-toolbar app dark>
       <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
       <v-toolbar-title class="headline text-uppercase">
         <router-link :to="{name: 'HelloWorld'}">
